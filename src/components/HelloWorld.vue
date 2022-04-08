@@ -1,151 +1,108 @@
 <template>
   <v-container>
-    <v-row class="text-center">
+    <v-row dense>
       <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
+        <v-card color="#385F73" dark>
+          <v-card-title class="text-h6">
+            Música ilimitada de José José
+          </v-card-title>
 
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          What's next?
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
+          <v-card-subtitle
+            >Escuche sus canciones y álbumes favoritos cuando y donde sea, en
+            línea.</v-card-subtitle
           >
-            {{ next.text }}
-          </a>
-        </v-row>
+
+          <v-card-actions>
+            <v-btn text> ¡Escuchar! </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
+      <!-- canciones -->
+      <v-col v-for="(item, i) in items" :key="i" cols="12">
+        <v-card :color="item.color" dark>
+          <div class="d-flex flex-no-wrap justify-space-between">
+            <div>
+              <v-card-title class="text-h6" v-text="item.title"></v-card-title>
 
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Important Links
-        </h2>
+              <v-card-subtitle v-text="item.artist"></v-card-subtitle>
+              <v-card-subtitle v-text="item.album"></v-card-subtitle>
+              <v-card-actions>
+                <v-btn
+                  class="ml-2 mt-3"
+                  fab
+                  icon
+                  height="40px"
+                  right
+                  width="40px"
+                  v-on:click="playMusic(item.song)"
+                >
+                  <v-icon>mdi-play</v-icon>
+                </v-btn>
 
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Ecosystem
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
+                <!-- <v-btn
+                  v-else
+                  class="ml-2 mt-5"
+                  outlined
+                  rounded
+                  small
+                  v-on:click="pauseMusic(item.song)"
+                >
+                  <v-icon>mdi-pause</v-icon>
+                </v-btn> -->
+              </v-card-actions>
+            </div>
+            <v-avatar class="ma-3" size="125" tile>
+              <v-img :src="item.src"></v-img>
+            </v-avatar>
+          </div>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  export default {
-    name: 'HelloWorld',
+export default {
+  data: () => ({
+    items: [
+      {
+        color: "#191919",
+        src: require("@/assets/imagenes/jose-el-triste.png"),
+        title: "El Triste",
+        artist: "José José",
+        album: "El triste",
+        song: require("@/assets/songs/el-triste.mp3"),
+      },
+      {
+        color: "#2366A9",
+        src: require("@/assets/imagenes/tu-ganas-jose.png"),
+        title: "Tu Ganas",
+        artist: "José José",
+        album: "Reflexiones",
+        song: require("@/assets/songs/tu-ganas.mp3"),
+      },
 
-    data: () => ({
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
-        },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com',
-        },
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
-        },
-      ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer',
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
-    }),
-  }
+      {
+        color: "#D2BD29",
+        src: require("@/assets/imagenes/jose-la-nave.png"),
+        title: "La nave del Olvido",
+        artist: "José José",
+        album: "La nave del Olvido",
+        song: require("@/assets/songs/la-nave-del-olvido.mp3"),
+      },
+    ],
+  }),
+
+  methods: {
+    playMusic(song) {
+      let audio = new Audio(song);
+      audio.play();
+    },
+    pauseMusic(song) {
+      let audio = new Audio(song);
+      audio.pause();
+    },
+  },
+};
 </script>
+
